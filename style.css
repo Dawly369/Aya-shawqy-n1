@@ -1,0 +1,697 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #e67e22;
+    --background-color: #f8f9fa;
+    --text-color: #2c3e50;
+    --button-hover: #34495e;
+    --accent-1: #3498db;  /* Blue */
+    --accent-2: #2ecc71;  /* Green */
+    --accent-3: #e74c3c;  /* Red */
+    --accent-4: #9b59b6;  /* Purple */
+    --accent-5: #f39c12;  /* Orange */
+    --accent-6: #1abc9c;  /* Turquoise */
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Amiri', serif;
+}
+
+body {
+    font-family: 'Amiri', serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    background: linear-gradient(
+        135deg, 
+        #fff9c4,  /* Light yellow */
+        #b3e5fc,  /* Light blue */
+        #ffcc80,  /* Light orange */
+        #b3e5fc,  /* Light blue */
+        #fff9c4   /* Light yellow */
+    );
+    background-size: 300% 300%;
+    animation: gradientBG 12s ease infinite;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    counter-reset: prayer-counter;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Add floating bubbles animation */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 249, 196, 0.6) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(179, 229, 252, 0.5) 0%, transparent 35%),
+        radial-gradient(circle at 40% 60%, rgba(255, 204, 128, 0.5) 0%, transparent 30%);
+    opacity: 0.7;
+    z-index: -1;
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10px, 10px) rotate(2deg); }
+    50% { transform: translate(0, 20px) rotate(0deg); }
+    75% { transform: translate(-10px, 10px) rotate(-2deg); }
+}
+
+/* Add subtle star background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="0.5" fill="%23a1c4fd"/></svg>') repeat;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+h1 {
+    color: var(--primary-color);
+    margin: 1.5rem 0 2.5rem;
+    font-size: 2.8rem;
+    line-height: 1.4;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    border-radius: 3px;
+    margin: 0 auto;
+    right: 0;
+}
+
+.counter-container {
+    background-color: white;
+    padding: 2.5rem 3rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    color: white;
+    font-size: 1.4rem;
+    line-height: 2;
+    text-align: right;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+.counter-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-5));
+    background-size: 200% 100%;
+    animation: gradientBG 3s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#counter {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin: 0.8rem 0;
+    font-family: 'Digital-7', monospace;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: pulse 2s infinite;
+}
+
+/* Adjust counter for larger screens */
+@media (min-width: 768px) {
+    #counter {
+        font-size: 4rem;
+        margin: 1rem 0;
+    }
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0.5rem;
+}
+
+/* Adjust buttons for larger screens */
+@media (min-width: 480px) {
+    .buttons {
+        gap: 1rem;
+        padding: 0;
+    }
+}
+
+.counter-button {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1.2rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.counter-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.individual-counter {
+    font-family: 'Digital-7', monospace;
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    background: #f8f9fa;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    min-width: 100px;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+/* Digital font for counters */
+@font-face {
+    font-family: 'Digital-7';
+    src: url('https://www.1001fonts.com/download/digital-7.mono.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+button {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Amiri', serif;
+    font-weight: 700;
+    flex: 1;
+    text-align: center;
+    min-width: 200px;
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    font-family: 'Amiri', serif;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+button:hover::after {
+    transform: translateY(0);
+}
+
+button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Colors */
+#tasbeeh { background-color: var(--accent-1); }  /* Blue */
+#tahmeed { background-color: var(--accent-2); }  /* Green */
+#takbeer { background-color: var(--accent-5); }  /* Orange */
+#tahlil  { background-color: var(--accent-4); }  /* Purple */
+#istighfar { background-color: var(--accent-3); } /* Red */
+#hawqala { background-color: var(--accent-6); }  /* Turquoise */
+
+/* Hover effects */
+#tasbeeh:hover { background-color: #2980b9; }
+#tahmeed:hover { background-color: #27ae60; }
+#takbeer:hover { background-color: #d35400; }
+#tahlil:hover  { background-color: #8e44ad; }
+#istighfar:hover { background-color: #c0392b; }
+#hawqala:hover { background-color: #16a085; }
+
+button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+#prayers-container {
+    margin: 3rem auto;
+    max-width: 1200px;
+    padding: 1.5rem;
+    text-align: right;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.prayer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(145deg, 
+        rgba(14, 165, 233, 0.9), 
+        rgba(2, 132, 199, 0.9),
+        rgba(3, 105, 161, 0.9));
+    border: none;
+    padding: 2.2rem 2.4rem;
+    margin: 0 0 2.2rem 0;
+    border-radius: 20px;
+    font-size: 2.2rem;
+    line-height: 2.6;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    padding: 2.5rem 2.8rem;
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease-out forwards;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    counter-increment: prayer-counter;
+    width: 100%;
+    box-sizing: border-box;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    text-align: right;
+    font-weight: 500;
+}
+
+.prayer:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    z-index: 2;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Gradient color variations for prayer cards with subtle patterns */
+.prayer {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.prayer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15) 0%, transparent 20%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 30%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.prayer:nth-child(6n+1) { 
+    background: linear-gradient(135deg, 
+        #0ea5e9,
+        #0284c7,
+        #0369a1);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.prayer:nth-child(6n+2) { 
+    background: linear-gradient(135deg, 
+        #5eead4,
+        #0d9488,
+        #0f766e);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.prayer:nth-child(6n+3) { 
+    background: linear-gradient(135deg, 
+        #7dd3fc,
+        #0ea5e9,
+        #0369a1);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.prayer:nth-child(6n+4) { 
+    background: linear-gradient(135deg, 
+        #93c5fd,
+        #3b82f6,
+        #1d4ed8);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.prayer:nth-child(6n+5) { 
+    background: linear-gradient(135deg, 
+        #67e8f9,
+        #06b6d4,
+        #0891b2);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.prayer:nth-child(6n+6) { 
+    background: linear-gradient(135deg, 
+        #a5b4fc,
+        #6366f1,
+        #4f46e5);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Prayer numbers - Modern Design */
+.prayer::before {
+    content: counter(prayer-counter);
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    font-size: 1.3rem;
+    z-index: 2;
+    font-family: 'Amiri', serif;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transform: rotate(-5deg);
+    transition: all 0.3s ease;
+}
+
+.prayer:hover::before {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.title-box {
+    background: linear-gradient(135deg, #1e88e5, #0d47a1);
+    color: white;
+    padding: 1.5rem 0.8rem;
+    margin: -0.8rem -0.8rem 2rem -0.8rem;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+}
+
+/* Adjust title for better mobile display */
+.title-box h1 {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    padding: 0 0.8rem;
+}
+
+/* Adjust title for larger screens */
+@media (min-width: 768px) {
+    .title-box {
+        padding: 2rem 1rem;
+        margin: -1rem -1rem 3rem -1rem;
+        border-radius: 0 0 25px 25px;
+    }
+    
+    .title-box h1 {
+        font-size: 1.8rem;
+        line-height: 1.6;
+    }
+}
+
+.title-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        #f44336, #e91e63, #9c27b0, #673ab7, 
+        #3f51b5, #2196f3, #03a9f4, #00bcd4, 
+        #009688, #4caf50, #8bc34a, #cddc39, 
+        #ffeb3b, #ffc107, #ff9800, #ff5722);
+    background-size: 400% 400%;
+    animation: rainbow 10s ease infinite;
+}
+
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.title-box h1 {
+    color: white;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.6;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    padding: 0 2rem;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .title-box h1 {
+        font-size: 1.3rem;
+        padding: 0.5rem;
+    }
+    
+    .title-box {
+        padding: 1.2rem 1rem;
+        margin: -1rem -0.5rem 1.5rem -0.5rem;
+    }
+}
+
+/* Different gradient for each prayer number */
+.prayer:nth-child(6n+1)::before { 
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+.prayer:nth-child(6n+2)::before { 
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+.prayer:nth-child(6n+3)::before { 
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+.prayer:nth-child(6n+4)::before { 
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+.prayer:nth-child(6n+5)::before { 
+    background: linear-gradient(135deg, #f39c12, #d35400);
+}
+.prayer:nth-child(6n)::before { 
+    background: linear-gradient(135deg, #1abc9c, #16a085);
+}
+
+/* Removed decorative quotation marks */
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Add numbers to prayers */
+.prayer::before {
+    content: attr(data-number);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.8rem;
+    height: 1.8rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* Feedback animation */
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* Removed moveLeft animation as we don't need it anymore */
+
+footer {
+    margin-top: 4rem;
+    padding: 1.5rem 1rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 1s ease-out 0.5s both;
+}
+
+footer p {
+    margin: 0;
+    line-height: 1.6;
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    #counter {
+        font-size: 3rem;
+    }
+    
+    button {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .prayer {
+        font-size: 2rem;
+        padding: 2.2rem 2rem;
+        margin: 0 auto 2rem;
+        line-height: 2.5rem;
+    }
+    
+    .buttons {
+        padding: 0 1rem;
+    }
+    
+    .counter-button {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+    }
+    
+    button {
+        width: 100%;
+        font-size: 1.5rem;
+        padding: 1.2rem;
+    }
+    
+    .individual-counter {
+        width: 100%;
+        font-size: 2.5rem;
+    }
+}
